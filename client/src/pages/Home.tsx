@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronDown, BookOpen, User, Clock, AlertCircle } from 'lucide-react';
+import { ChevronDown, BookOpen, User, Clock, AlertCircle, Coffee } from 'lucide-react';
 
 /**
  * Design Philosophy: Lúdico Azul e Amarelo
@@ -103,6 +103,10 @@ export default function Home() {
     return classInfo.professor || classInfo.hours || classInfo.observation;
   };
 
+  const isNoClass = (classInfo: ClassInfo) => {
+    return classInfo.subject === 'Sem agendamento';
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-yellow-50">
       {/* Hero Section com Imagem Personalizada */}
@@ -155,7 +159,12 @@ export default function Home() {
                 >
                   <button
                     onClick={() => toggleExpand(classInfo.id)}
-                    className={`w-full text-left bg-white border-l-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden ${classInfo.color}`}
+                    className={`w-full text-left border-l-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden ${
+                      isNoClass(classInfo)
+                        ? 'bg-gradient-to-br from-gray-100 to-gray-50 border-gray-300 opacity-75 cursor-not-allowed'
+                        : `bg-white ${classInfo.color}`
+                    }`}
+                    disabled={isNoClass(classInfo)}
                   >
                     {/* Header do Card */}
                     <div className="p-4">
@@ -164,11 +173,18 @@ export default function Home() {
                           <p className="text-xs md:text-sm font-semibold text-gray-500 uppercase tracking-wide">
                             {classInfo.period}
                           </p>
-                          <h3 className="text-base md:text-lg font-bold text-gray-900 mt-1 line-clamp-2">
-                            {classInfo.subject}
-                          </h3>
+                          <div className="flex items-center gap-2 mt-1">
+                            {isNoClass(classInfo) && (
+                              <Coffee size={18} className="text-gray-400 flex-shrink-0" />
+                            )}
+                            <h3 className={`text-base md:text-lg font-bold line-clamp-2 ${
+                              isNoClass(classInfo) ? 'text-gray-500 italic' : 'text-gray-900'
+                            }`}>
+                              {classInfo.subject}
+                            </h3>
+                          </div>
                         </div>
-                        {hasDetails(classInfo) && (
+                        {hasDetails(classInfo) && !isNoClass(classInfo) && (
                           <ChevronDown
                             size={20}
                             className={`flex-shrink-0 text-gray-600 transition-transform duration-300 ${
