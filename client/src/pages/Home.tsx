@@ -66,12 +66,18 @@ export default function Home() {
         setLoading(true);
         setError(null);
 
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/1q_bLd3HXuFUH7Sogj3lo9D7aLv2BMqgX8P2iAnwbMF0/export?format=csv';
+        // Usar a URL de publicação do Google Sheets (mais confiável)
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/1q_bLd3HXuFUH7Sogj3lo9D7aLv2BMqgX8P2iAnwbMF0/pub?gid=0&single=true&output=csv';
 
         const response = await fetch(sheetUrl);
-        if (!response.ok) throw new Error('Erro ao buscar dados da planilha');
+        if (!response.ok) throw new Error(`Erro ao buscar dados da planilha: ${response.status}`);
 
         const csv = await response.text();
+        
+        // Validar se recebeu CSV válido
+        if (!csv || csv.includes('<HTML>') || csv.includes('<!DOCTYPE')) {
+          throw new Error('Planilha não está acessível. Verifique se está compartilhada publicamente.');
+        }
         const lines = csv.trim().split('\n');
 
         // Extrair datas: A2 (linha 1, coluna 0) e B2 (linha 1, coluna 1)
