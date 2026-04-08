@@ -66,7 +66,7 @@ export default function Home() {
         setLoading(true);
         setError(null);
 
-        const sheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vREpJpVONcyEjAkhkPaCdfOpBsRAz9wDrmNFBucoyNczaVK4KUK9TxHPLVfkCP8goBFaUohYIDxmTI7/pub?gid=960345681&single=true&output=csv';
+        const sheetUrl = 'https://docs.google.com/spreadsheets/d/1q_bLd3HXuFUH7Sogj3lo9D7aLv2BMqgX8P2iAnwbMF0/export?format=csv';
 
         const response = await fetch(sheetUrl);
         if (!response.ok) throw new Error('Erro ao buscar dados da planilha');
@@ -74,32 +74,33 @@ export default function Home() {
         const csv = await response.text();
         const lines = csv.trim().split('\n');
 
-        // Extrair datas da primeira linha
-        if (lines.length > 0) {
-          const headerLine = lines[0].split(',');
-          const startDate = headerLine[0]?.trim() || '';
-          const endDate = headerLine[1]?.trim() || '';
+        // Extrair datas: A2 (linha 1, coluna 0) e B2 (linha 1, coluna 1)
+        if (lines.length > 1) {
+          const dataLine = parseCSVLine(lines[1]);
+          const startDate = dataLine[0]?.trim() || '';
+          const endDate = dataLine[1]?.trim() || '';
           setWeekDates({ start: startDate, end: endDate });
         }
 
-        // Processar dados das aulas (a partir da linha 2)
+        // Processar dados das aulas (a partir da linha 2, começando na coluna C)
         const courses: { [key: string]: ClassInfo[] } = {};
 
-        for (let i = 1; i < lines.length; i++) {
+        for (let i = 2; i < lines.length; i++) {
           const line = lines[i].trim();
           if (!line) continue;
 
           // Parse CSV com suporte a aspas
           const cells = parseCSVLine(line);
           
-          if (cells.length < 3) continue;
+          // Dados começam na coluna C (índice 2)
+          if (cells.length < 5) continue;
 
-          const curso = cells[0]?.trim() || '';
-          const periodo = cells[1]?.trim() || '';
-          const materia = cells[2]?.trim() || '';
-          const professor = cells[3]?.trim() || '';
-          const cargaHoraria = cells[4]?.trim() || '';
-          const observacao = cells[5]?.trim() || '';
+          const curso = cells[2]?.trim() || '';
+          const periodo = cells[3]?.trim() || '';
+          const materia = cells[4]?.trim() || '';
+          const professor = cells[5]?.trim() || '';
+          const cargaHoraria = cells[6]?.trim() || '';
+          const observacao = cells[7]?.trim() || '';
 
           if (!curso || !periodo || !materia) continue;
 
