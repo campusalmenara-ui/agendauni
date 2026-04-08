@@ -179,11 +179,6 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* Espaçador entre o título e o conteúdo expandido */}
-                    {hasDetails(classInfo) && expandedId === classInfo.id && (
-                      <div className="h-4"></div>
-                    )}
-
                     {/* Conteúdo Expandido */}
                     {hasDetails(classInfo) && (
                       <div
@@ -191,7 +186,7 @@ export default function Home() {
                           expandedId === classInfo.id ? 'max-h-96' : 'max-h-0'
                         }`}
                       >
-                        <div className="px-4 pb-4 pt-0 border-t border-gray-200 space-y-3 bg-gray-50">
+                        <div className="px-4 pb-4 pt-6 border-t border-gray-200 space-y-3 bg-gray-50">
                           {/* Matéria */}
                           <div className="flex items-start gap-3">
                             <BookOpen size={18} className="text-blue-600 flex-shrink-0 mt-0.5" />
