@@ -276,13 +276,12 @@ export default function Home() {
 
       {/* Hero Section com Imagem de Agenda Semanal */}
       <div
-        className="relative w-full overflow-hidden"
+        className="relative w-full overflow-hidden h-[120px] md:h-[150px]"
         style={{
           backgroundImage: 'url(https://d2xsxph8kpxj0f.cloudfront.net/310419663030187894/57Ypr7wbFX6eHCZZ7V6o8w/agenda-semanal_4a0a5151.png)',
           backgroundSize: '100% auto',
           backgroundPosition: 'center top',
           backgroundRepeat: 'no-repeat',
-          height: '150px',
         }}
       >
         {/* Overlay suave */}

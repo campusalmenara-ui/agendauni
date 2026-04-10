@@ -220,15 +220,7 @@ export function NewsSection() {
           </button>
         </div>
 
-        {/* Botão para recarregar */}
-        <div className="text-center mt-8">
-          <button
-            onClick={fetchNews}
-            className="text-blue-500 hover:text-blue-600 text-sm font-semibold transition-colors"
-          >
-            ↻ Recarregar notícias
-          </button>
-        </div>
+
       </div>
     </div>
   );
