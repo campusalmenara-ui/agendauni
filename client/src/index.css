@@ -182,3 +182,15 @@
     }
   }
 }
+  /* Header Card - Imagem + Barra Azul */
+  .header-card {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0.65rem;
+  }
+
+  .header-card > div:first-child {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
