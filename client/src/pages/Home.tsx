@@ -281,7 +281,7 @@ export default function Home() {
           backgroundSize: '100% auto',
           backgroundPosition: 'center top',
           backgroundRepeat: 'no-repeat',
-          aspectRatio: '16 / 9',
+          height: '150px',
         }}
       >
         {/* Overlay suave */}
