@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ChevronDown, BookOpen, User, Clock, AlertCircle, Coffee, Instagram, MessageCircle } from 'lucide-react';
+import { NewsSection } from '@/components/NewsSection';
 
 /**
  * Design Philosophy: Lúdico Azul e Amarelo
@@ -438,15 +439,21 @@ export default function Home() {
             </div>
           )}
 
-          {/* Footer Info */}
-          <div className="mt-12 pt-8 border-t-2 border-yellow-300 text-center">
-            <p className="text-sm text-gray-600 font-semibold">
-              Agenda da Semana - Unimontes Campus Almenara
-            </p>
-            <p className="text-xs text-gray-500 mt-2">
-              
-            </p>
-          </div>
+        </div>
+      </div>
+
+      {/* Seção de Notícias */}
+      <NewsSection />
+
+      {/* Footer */}
+      <div className="bg-gray-800 text-white py-8 px-4 md:px-8 lg:px-16 xl:px-24">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-sm font-semibold">
+            Agenda da Semana - Unimontes Campus Almenara
+          </p>
+          <p className="text-xs text-gray-400 mt-2">
+            © 2026 Universidade Estadual de Montes Claros
+          </p>
         </div>
       </div>
     </div>
